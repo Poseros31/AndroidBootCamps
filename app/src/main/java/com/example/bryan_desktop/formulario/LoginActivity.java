@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(usuario.equals("bryan")&&clave.equals("admin"))
                     {
                         Toast.makeText(LoginActivity.this, "BIENVENIDO BRYAN",Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this,ListActivity.class);
                         intent.putExtra("nombre", "Bryan Soto");
                         startActivity(intent);
                     }
