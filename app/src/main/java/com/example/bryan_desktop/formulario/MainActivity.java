@@ -1,5 +1,6 @@
 package com.example.bryan_desktop.formulario;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -86,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
                         "Celular: "+phone.getText()+"\n"+
                         chk;
                 Toast.makeText(MainActivity.this,""+msj, Toast.LENGTH_LONG).show();
+
+                //CREANDO EL INTENT CON EL PARAMETRO DEL NOMBRE PARA AGREGAR AL LIST ACTIVITY
+                Intent intent = new Intent(MainActivity.this,ListActivity.class);
+                ListActivity.participantes.add(nombre.getText());
+
+                //BLANQUEO DE CAMPOS
                 nombre.setText("");
                 mail.setText("");
                 phone.setText("");
@@ -95,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                 ia.setChecked(false);
                 dm.setChecked(false);
                 dw.setChecked(false);
+
+                //IR A LIST ACTIVITY
+                startActivity(intent);
             }
         });
 

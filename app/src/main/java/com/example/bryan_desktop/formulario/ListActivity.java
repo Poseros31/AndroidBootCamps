@@ -19,8 +19,9 @@ public class ListActivity extends AppCompatActivity {
 
     //VARIABLES
     ListView lista;
+    public static int num;
     //CREANDO VARIABLE ARRAY
-    ArrayList participantes;
+    public static ArrayList participantes = new ArrayList<String>();
     //CREANDO ADAPTADOR
     ArrayAdapter adapter;
 
@@ -33,11 +34,15 @@ public class ListActivity extends AppCompatActivity {
         //REFERENCIANDO VARIABLES CON COMPONENTES
         lista = (ListView) findViewById(R.id.lv_participantes);
 
-        //CREANDO EL ARRAY LISTA Y AGREGANDO VALORES
-        participantes = new ArrayList<String>();
-        participantes.add("Bryan");
-        participantes.add("Edward");
-        participantes.add("Wendy");
+        //VALIDAR QUE SE CREE SOLO UNA VEZ
+        if(num==0)
+        {
+            //CREANDO EL ARRAY LISTA Y AGREGANDO VALORES
+            participantes.add("Bryan");
+            participantes.add("Edward");
+            participantes.add("Wendy");
+            num=1;
+        }
 
         //CREACIÓN DE ADAPTADOR DE ARRAY
         adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, participantes);
@@ -83,7 +88,7 @@ public class ListActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu,v,menuInfo);
         MenuInflater inflater = getMenuInflater();
         AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo) menuInfo;
-        menu.setHeaderTitle((String) this.participantes.get(info.position));
+        //menu.setHeaderTitle((String) participantes.get(info.position));
         inflater.inflate(R.menu.context_menu,menu);
     }
 
