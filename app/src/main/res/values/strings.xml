@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Formulario</string>
+    <string name="usuario">USUARIO</string>
+    <string name="clave">CLAVE</string>
+    <string name="validar">VALIDAR</string>
 </resources>
