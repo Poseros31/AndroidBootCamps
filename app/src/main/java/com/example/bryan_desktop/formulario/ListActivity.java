@@ -2,9 +2,12 @@ package com.example.bryan_desktop.formulario;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -41,8 +44,12 @@ public class ListActivity extends AppCompatActivity {
         //AGREGANDO ADAPTADOR A LISTVIEW
         lista.setAdapter(adapter);
 
+        //ASIGNANDO MENU CONTEXTUAL A LISTVIEW
+        registerForContextMenu(lista);
+
     }
 
+    //CREANDO OPTIONS MENU
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -51,6 +58,7 @@ public class ListActivity extends AppCompatActivity {
         return true;
     }
 
+    //AGREGANDO PARTICIPANTE DESDE OPTIONS MENU
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -58,12 +66,43 @@ public class ListActivity extends AppCompatActivity {
         {
             case R.id.add_item:
                 //
-                Toast.makeText(ListActivity.this,"Agregando nuevo item",Toast.LENGTH_LONG).show();
                 participantes.add("Nombre Nuevo");
                 adapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    //CREANDO CONTEXTMENU PARA LISTVIEW
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        //CREA EL MENU DENTRO DEL ACTIVITY
+        super.onCreateContextMenu(menu,v,menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo) menuInfo;
+        menu.setHeaderTitle((String) this.participantes.get(info.position));
+        inflater.inflate(R.menu.context_menu,menu);
+    }
+
+    //EVENTO CLICK EN EL CONTEXTO DE LISTADO
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        //DETECTA EL CLICK EN ALGUN ITEM DENTRO DEL  MENU CONTEXTUAL
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch(item.getItemId())
+        {
+            case R.id.delete_item:
+                Toast.makeText(ListActivity.this,"Eliminando item",Toast.LENGTH_LONG).show();
+                participantes.remove(info.position);
+                adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
