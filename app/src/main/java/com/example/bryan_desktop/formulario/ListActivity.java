@@ -1,5 +1,6 @@
 package com.example.bryan_desktop.formulario;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -66,8 +67,8 @@ public class ListActivity extends AppCompatActivity {
         {
             case R.id.add_item:
                 //
-                participantes.add("Nombre Nuevo");
-                adapter.notifyDataSetChanged();
+                Intent intent = new Intent(ListActivity.this,MainActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
